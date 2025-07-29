@@ -6,6 +6,58 @@
     <title>Francielle L. Buba</title>
     <link rel="stylesheet" href="styles.css">
     </head>
+    <script>
+// Scroll suave nos links do menu
+document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', e => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const section = document.getElementById(targetId);
+        section.scrollIntoView({ behavior: 'smooth' });
+    });
+});
+
+// Mostrar botão "voltar ao topo"
+const scrollBtn = document.createElement('button');
+scrollBtn.textContent = '⬆ Topo';
+scrollBtn.id = 'scrollTopBtn';
+document.body.appendChild(scrollBtn);
+
+scrollBtn.style.position = 'fixed';
+scrollBtn.style.bottom = '30px';
+scrollBtn.style.right = '30px';
+scrollBtn.style.padding = '10px 15px';
+scrollBtn.style.border = 'none';
+scrollBtn.style.borderRadius = '5px';
+scrollBtn.style.backgroundColor = '#5c9ecf';
+scrollBtn.style.color = 'white';
+scrollBtn.style.cursor = 'pointer';
+scrollBtn.style.display = 'none';
+scrollBtn.style.zIndex = '1000';
+
+window.addEventListener('scroll', () => {
+    scrollBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+});
+
+scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Efeito fade-in ao rolar
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in');
+        }
+    });
+});
+
+document.querySelectorAll('main section').forEach(sec => {
+    sec.classList.add('fade-target');
+    observer.observe(sec);
+});
+</script>
+
 <body>
     <header>
         <h1> Francielle L. Buba - Fotografias</h1>
